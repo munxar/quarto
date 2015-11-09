@@ -8,7 +8,10 @@ export function layout(config:LayoutConfiguration) {
             return m("div", {id: config.contentId}, [
                 m("div", {id: config.toastId}),
                 m("div", {id: config.menuId}),
-                m("div", {id: config.pageId})
+                m("main", [
+                    m("div", {id: config.usersId}),
+                    m("div", {id: config.pageId})
+                ])
             ]);
         }
     };

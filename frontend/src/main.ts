@@ -13,6 +13,7 @@ import {toast} from "./toast/toast";
 import {socket} from "./socket";
 import {menuModule} from "./menu/menuModule";
 import {gameModule} from "./game/gameModule";
+import {usersModule} from "./users/usersModule";
 import "./main.css!css";
 import MithrilRoutes = _mithril.MithrilRoutes;
 
@@ -23,6 +24,7 @@ var configuration = configure();
 initialize(configuration);
 
 function initialize(config:AppConfiguration) {
+    var sock = socket();
     m.route.mode = config.routeMode;
 
     // render layout into body
@@ -37,7 +39,9 @@ function initialize(config:AppConfiguration) {
     // mount toast component
     m.mount(document.getElementById(config.layout.toastId), toast(config.layout, toastService));
 
-    var sock = socket();
+    // mount users list
+    m.mount(document.getElementById(config.layout.usersId), usersModule(sock));
+
     var route = config.route;
     // route content
     m.route(document.getElementById(config.layout.pageId), route.home, <MithrilRoutes<any>> {

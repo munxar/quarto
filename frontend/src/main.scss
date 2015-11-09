@@ -92,3 +92,12 @@
   display: inline-flex;
   flex-direction: column;
 }
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+#page {
+  margin-left: 1rem;
+}

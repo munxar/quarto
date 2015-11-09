@@ -8,6 +8,7 @@ export function configure(): AppConfiguration {
         layout: {
             contentId: "content",
             menuId: "menu",
+            usersId: "users",
             pageId: "page",
             toastId: "toast"
         },

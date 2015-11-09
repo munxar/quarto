@@ -17,17 +17,23 @@ app.use("/api", api);
 var server = http.createServer(app);
 var io = socketio(server);
 
-var usernames = {};
-//socketioJwt.authorize({secret: "1234", timeout: 15000 })).on('authenticated', function (socket)
+var users = [];
 
-io.on('connection',  function(socket) {
-    //this socket is authenticated, we are good to handle more events from it.
-    //console.log('hello! ' + JSON.stringify(socket.decoded_token));
-    console.log('user %s connected', socket.id);
+io.on("connection",  function(socket) {
+    console.log("user %s connected", socket.id);
+
+    users.push({ id: socket.id, name: "Gast" });
+
+    io.sockets.emit("users.list", users);
 
     socket.on("disconnect", function () {
-
         console.log("%s disconnected", socket.id);
+        var user = users.filter(user => user.id == socket.id)[0];
+        var idx = users.indexOf(user);
+        if(idx >= 0) {
+            users.splice(idx, 1);
+            io.sockets.emit("users.list", users);
+        }
     });
 
     socket.on("msg", function (msg) {

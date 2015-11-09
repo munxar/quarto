@@ -1,4 +1,4 @@
 
 export class HomeController {
-    message = "Welcome to Quarto!";
+    message = "welcome to quarto!";
 }

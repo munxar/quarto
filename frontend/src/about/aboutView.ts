@@ -4,8 +4,9 @@ import {AboutController} from "./AboutController";
 
 export function aboutView(ctrl: AboutController) {
     var info = ctrl.info;
-    return m("div", [
+    return [
+        m("h1", "about"),
         m(".message", info.message),
         m(".version", info.version)
-    ]);
+    ];
 }

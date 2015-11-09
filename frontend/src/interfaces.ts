@@ -8,6 +8,7 @@ export interface AppConfiguration {
 export interface LayoutConfiguration {
     contentId: string;
     menuId: string;
+    usersId: string;
     pageId: string;
     toastId: string;
 }
