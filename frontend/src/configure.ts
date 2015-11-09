@@ -13,8 +13,7 @@ export function configure(): AppConfiguration {
         },
         route: {
             home: "/",
-            single: "/single",
-            multi: "/multi",
+            game: "/game",
             login: "/login",
             about: "/about"
         }

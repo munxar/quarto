@@ -12,7 +12,9 @@ import {ToastService} from "./toast/ToastService";
 import {toast} from "./toast/toast";
 import {socket} from "./socket";
 import {menuModule} from "./menu/menuModule";
+import {gameModule} from "./game/gameModule";
 import "./main.css!css";
+import MithrilRoutes = _mithril.MithrilRoutes;
 
 // create configuration
 var configuration = configure();
@@ -20,7 +22,7 @@ var configuration = configure();
 // initialize app
 initialize(configuration);
 
-function initialize(config: AppConfiguration) {
+function initialize(config:AppConfiguration) {
     m.route.mode = config.routeMode;
 
     // render layout into body
@@ -38,11 +40,10 @@ function initialize(config: AppConfiguration) {
     var sock = socket();
     var route = config.route;
     // route content
-    m.route(document.getElementById(config.layout.pageId), route.home, {
-        [route.home]: homeModule(),
-        [route.single]: singleModule(),
-        [route.multi]: multi(toastService, sock),
-        [route.about]: aboutModule(),
-        [route.login]: login(toastService, sock)
-    });
+    m.route(document.getElementById(config.layout.pageId), route.home, <MithrilRoutes<any>> {
+            [route.home]: homeModule(),
+            [route.game]: gameModule(),
+            [route.about]: aboutModule(),
+            [route.login]: login(toastService, sock)
+        });
 }

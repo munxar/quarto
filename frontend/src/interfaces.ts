@@ -14,8 +14,7 @@ export interface LayoutConfiguration {
 
 export interface RouteConfiguration {
     home: string;
-    single: string;
-    multi: string;
+    game: string;
     login: string;
     about: string;
 }

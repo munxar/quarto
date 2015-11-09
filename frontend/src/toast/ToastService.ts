@@ -23,7 +23,7 @@ export class ToastService {
         this.toasts.push(toast);
         setTimeout(() => {
             this.removeToast(toast);
-            m.render(document.getElementById("toast"));
+            m.redraw();
         }, 5000);
     }
 

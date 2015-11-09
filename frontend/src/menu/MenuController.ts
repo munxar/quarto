@@ -9,6 +9,7 @@ export class MenuController {
     constructor(route:RouteConfiguration) {
         this.items = [
             new MenuItem(route.home, "home"),
+            new MenuItem(route.game, "game"),
             new MenuItem(route.about, "about"),
             new MenuItem(route.login, "login")
         ];

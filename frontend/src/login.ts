@@ -49,7 +49,7 @@ function loginView(ctrl:LoginController) {
 function formControll(name:string, value, type = "text") {
     return m("div", {}, [
         m("label", {"for": name}, name),
-        m("input", {type, id: name, onchange: m.withAttr("value", value), value: value() })
+        m("input", {type, id: name, oninput: m.withAttr("value", value), value: value() })
     ]);
 }
 
