@@ -1,0 +1,33 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "express/express.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "node/node.d.ts": {
+      "commit": "8d746ca9eac4ae3d3f3561c6cdc39f2e315ac5b8"
+    },
+    "mime/mime.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "serve-static/serve-static.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "body-parser/body-parser.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "socket.io/socket.io.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "jsonwebtoken/jsonwebtoken.d.ts": {
+      "commit": "8d746ca9eac4ae3d3f3561c6cdc39f2e315ac5b8"
+    },
+    "socket.io-client/socket.io-client.d.ts": {
+      "commit": "557308102dc729cce41c8c1b85107e8649b065ff"
+    }
+  }
+}

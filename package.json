@@ -1,0 +1,44 @@
+{
+  "jspm": {
+    "directories": {
+      "baseURL": "frontend",
+      "packages": "frontend/lib"
+    },
+    "dependencies": {
+      "css": "github:systemjs/plugin-css@^0.1.19",
+      "mithril": "npm:mithril@^0.2.0",
+      "socket.io-client": "github:socketio/socket.io-client@^1.3.7",
+      "text": "github:systemjs/plugin-text@^0.0.3"
+    },
+    "devDependencies": {
+      "clean-css": "npm:clean-css@^3.4.6"
+    }
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.11",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.0",
+    "gulp-typescript": "^2.9.2",
+    "tsd": "^0.6.5"
+  },
+  "name": "untitled36",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.4.1",
+    "jspm": "^0.16.14",
+    "socket.io": "^1.3.7",
+    "socketio-jwt": "^4.3.2"
+  },
+  "scripts": {
+    "postinstall": "tsd install && jspm install",
+    "start": "gulp",
+    "bundle": "jspm bundle-sfx --minify dist/main frontend/bin/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "ding",
+  "repository": " "
+}

@@ -1,0 +1,35 @@
+.toast-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.toast {
+    opacity: 0.75;
+    padding: 5px;
+    margin: 2px;
+}
+
+.trace {
+    background: lightgray;
+}
+
+.success {
+    background: green;
+}
+
+.error {
+    background: red;
+}
+
+.warning {
+    background: orange;
+}
+
+.info {
+    background: dodgerblue;
+}
+
+.toast:hover {
+    opacity: 1;
+}

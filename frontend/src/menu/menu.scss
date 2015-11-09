@@ -1,0 +1,11 @@
+.menu {
+    display: flex;
+}
+
+.menu-item {
+    padding: 5px;
+}
+
+.menu-item > a {
+    text-decoration: none;
+}
