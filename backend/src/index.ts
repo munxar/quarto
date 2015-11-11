@@ -24,7 +24,7 @@ var users = [];
 
 io.on("connection", function (socket:any) {
     console.log(socket.decoded_token);
-    users.push({ id: socket.id, username: socket.decoded_token.username});
+    users.push({ id: socket.id, username: socket.decoded_token.username, status: "online" });
 
     io.emit("update users", users);
 

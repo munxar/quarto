@@ -38,7 +38,10 @@ function toTime(date: string) {
 }
 
 function renderUser(user) {
-    return m("div", user.username);
+    return m("div", [
+        m("div", user.status),
+        m("div", user.username)
+    ]);
 }
 
 class ChatViewModel {
