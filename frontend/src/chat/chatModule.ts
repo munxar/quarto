@@ -3,6 +3,7 @@ import * as m from "mithril";
 import * as io from "socket.io-client";
 import {TokenService} from "../TokenService";
 import {Logger} from "../interfaces";
+import "./chat.css!css";
 
 export function chatModule(args?:any) {
     return {
@@ -12,7 +13,7 @@ export function chatModule(args?:any) {
         view: function (ctrl:ChatController) {
             return [
                 m("h1", "chat"),
-                m("div", ctrl.vm.users.map(renderUser, ctrl)),
+                m(".user-list", ctrl.vm.users.map(renderUser, ctrl)),
                 m("div", ctrl.vm.messages.map(renderMessage, ctrl)),
                 m("form", {onsubmit: ctrl.send}, [
                     m("input", {oninput: m.withAttr("value", ctrl.vm.input), value: ctrl.vm.input()}),
