@@ -1,103 +1,13 @@
-.active {
-  background-color: grey;
-}
+.chat {
+  .user {
+    .username { font-weight: bold }
+    .icon { width: 50px; height: 50px; background-color: red; }
+    .message { color: #333; }
+    .timestamp { color: #d3d3d3; }
+  }
 
-.grid {
-  display: inline-flex;
-  flex-direction: column;
-  border: solid 1px black;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.row {
-  display: inline-flex;
-}
-
-.block {
-  display: inline-flex;
-  flex-direction: column;
-  border: solid 1px black;
-}
-
-.block_row {
-  display: inline-flex;
-}
-
-.cell-container {
-  position: relative;
-}
-
-.cell {
-  font-size: 30px;
-  width: 1.2em;
-  height: 1.2em;
-  text-align: center;
-  border: solid 1px lightgrey;
-  z-index: 2;
-  position: relative;
-}
-
-.cell-value {
-  z-index: 10;
-}
-
-.cell-items {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.cell-row {
-  display: inline-flex;
-}
-
-.cell-item {
-  color: grey;
-  margin-top: 1px;
-  font-size: 8px;
-  width: 12px;
-  height: 12px;
-  text-align: center;
-}
-
-.toolbar {
-  display: inline-flex;
-  border: solid 1px grey;
-}
-
-.item {
-  font-size: 30px;
-  width: 1.2em;
-  text-align: center;
-  border: solid 1px black;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.invalid {
-  background-color: lightsalmon;
-}
-
-.selected {
-  background-color: cornflowerblue;
-}
-
-.content {
-  display: inline-flex;
-  flex-direction: column;
-}
-
-main {
-  display: flex;
-  flex-direction: row;
-}
-
-#page {
-  margin-left: 1rem;
+  .toolbar {
+    .input {}
+    .send {}
+  }
 }
