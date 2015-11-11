@@ -25,11 +25,17 @@ export function chatModule(args?:any) {
 
 function renderMessage(message) {
     return m(".message-container", [
-        m(".timestamp", message.timestamp),
+        m(".timestamp", toTime(message.timestamp)),
         m(".user", message.username),
         m(".message", message.message),
     ]);
 }
+
+function toTime(date: string) {
+    var bla = new Date(date);
+    return bla.getHours() + ":" + bla.getMinutes() + ":" + bla.getSeconds();
+}
+
 function renderUser(user) {
     return m("div", user.username);
 }
