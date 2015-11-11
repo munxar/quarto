@@ -1,7 +1,9 @@
+$spacing: 28px;
+
 .user-list {
+  border-bottom: 1px solid #d3d3d3;
+  margin-bottom: $spacing;
   .online {
-    border-bottom: 1px solid #d3d3d3;
-    margin-bottom: 28px;
     padding: 10px 0;
   }
   .online::before {
@@ -17,9 +19,24 @@
 }
 
 .message-container {
+  display: flex;
+  margin-bottom: $spacing;
   .user { font-weight: bold }
-  .icon { width: 50px; height: 50px; background-color: red; }
   .message { color: #333; }
   .timestamp { color: #d3d3d3; }
+}
+
+.form {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  .input {
+    height: 30px;
+    width: 70%;
+  }
+  .send {
+    height: 35px;
+    width: 25%;
+  }
 }
 
