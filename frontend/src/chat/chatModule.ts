@@ -39,8 +39,7 @@ function toTime(date: string) {
 
 function renderUser(user) {
     return m("div", [
-        m("div", user.status),
-        m("div", user.username)
+        m("div", {"class": user.status}, user.username)
     ]);
 }
 

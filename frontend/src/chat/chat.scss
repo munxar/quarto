@@ -1,8 +1,19 @@
 .user-list {
-  div {
+  .online {
     border-bottom: 1px solid #d3d3d3;
     margin-bottom: 28px;
+    padding: 10px 0;
   }
+  .online::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #9de099;
+    border-radius: 50%;
+    margin-right: 7px;
+  }
+
 }
 
 .message-container {
