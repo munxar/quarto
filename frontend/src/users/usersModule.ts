@@ -5,7 +5,6 @@ class UsersController {
     users: any[] = [];
     constructor(private socket) {
         socket.on("users.list", users => {
-            console.log(users);
             this.users = users;
             m.redraw();
         });

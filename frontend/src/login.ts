@@ -3,45 +3,54 @@
 import * as m from "mithril";
 import {ToastService, ToastLevel} from "./toast/ToastService";
 import Socket = SocketIOClient.Socket;
+import {min} from "./util/validation";
+import {TokenService} from "./TokenService";
+import {Logger} from "./interfaces";
 
 class LoginViewModel {
     username = m.prop("");
     password = m.prop("");
+
+    isValid() {
+        return min(this.username())
+            && min(this.password());
+    }
 }
 
 class LoginController {
     vm = new LoginViewModel();
 
-    constructor(private logger:ToastService, private socket: Socket) {
+    constructor(private logger:Logger, private tokenService: TokenService) {
 
     }
 
     login = (e) => {
-        m.request({method: "POST", url: "/api/login", data: this.vm })
-            .then(this.onSucess, this.onError);
         e.preventDefault();
+        if (this.vm.isValid()) {
+            m.request({ url: "/api/login", method: "POST", data: this.vm}).then(this.onSuccess, this.onError);
+            this.vm.password("");
+        }
     };
 
-    onSucess = (res) => {
-        console.log(res);
-        this.socket.emit("authenticate", res);
-
-        this.logger.addToast("login success", ToastLevel.SUCCESS);
-        m.route("/multi");
+    onSuccess = res => {
+        this.tokenService.setToken(res.token);
+        this.logger.success("loggin success");
+        m.route("/chat");
     };
 
     onError = (res:Error) => {
         this.vm.password("");
-        this.logger.addToast(res.message, ToastLevel.ERROR);
+        this.logger.error(res.message);
     }
 }
 
 function loginView(ctrl:LoginController) {
     return [
+        m("h1", "login"),
         m("form", {"class": "login-form", onsubmit: ctrl.login}, [
             formControll("username", ctrl.vm.username),
             formControll("password", ctrl.vm.password, "password"),
-            [m("button", {type: "submit"}, "Login")]
+            [m("button", {type: "submit", disabled: !ctrl.vm.isValid() }, "Login")]
         ])
     ];
 }
@@ -53,10 +62,10 @@ function formControll(name:string, value, type = "text") {
     ]);
 }
 
-export function login(logger: ToastService, socket: Socket) {
+export function login(logger: Logger, tokenService: TokenService) {
     return {
         controller: function () {
-            return new LoginController(logger, socket);
+            return new LoginController(logger, tokenService);
         },
         view: loginView
     };

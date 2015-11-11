@@ -1,5 +1,6 @@
 ///<reference path="../../../mithril.d.ts"/>
 import * as m from "mithril";
+import {Logger} from "../interfaces";
 
 export enum ToastLevel {
     TRACE,
@@ -15,7 +16,8 @@ export class Toast {
     }
 }
 
-export class ToastService {
+export class ToastService implements Logger {
+
     toasts: Toast[] = [];
 
     addToast(message: string, level = ToastLevel.TRACE) {
@@ -30,5 +32,13 @@ export class ToastService {
     removeToast(toast: Toast) {
         var idx = this.toasts.indexOf(toast);
         this.toasts.splice(idx, 1);
+    }
+
+    error(message:string) {
+        this.addToast(message, ToastLevel.ERROR)
+    }
+
+    success(message:string) {
+        this.addToast(message, ToastLevel.SUCCESS)
     }
 }

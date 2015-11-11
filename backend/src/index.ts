@@ -17,34 +17,20 @@ app.use("/api", api);
 var server = http.createServer(app);
 var io = socketio(server);
 
-var users = [];
+var opts = {secret: "1234", handshake: true};
+io.use(socketioJwt.authorize(opts));
 
-io.on("connection",  function(socket) {
-    console.log("user %s connected", socket.id);
-
-    users.push({ id: socket.id, name: "Gast" });
-
-    io.sockets.emit("users.list", users);
+io.on("connection", function (socket:any) {
+    console.log(socket.decoded_token);
 
     socket.on("disconnect", function () {
-        console.log("%s disconnected", socket.id);
-        var user = users.filter(user => user.id == socket.id)[0];
-        var idx = users.indexOf(user);
-        if(idx >= 0) {
-            users.splice(idx, 1);
-            io.sockets.emit("users.list", users);
-        }
-    });
-
-    socket.on("msg", function (msg) {
-        console.log(msg);
-        io.emit("msg", msg);
+        console.log("disconnect %s", socket.id);
     });
 });
 
-server.listen(3000, function(err) {
-    if(err) throw err;
-    if(process.send) {
+server.listen(3000, function (err) {
+    if (err) throw err;
+    if (process.send) {
         process.send("ready");
     }
 });

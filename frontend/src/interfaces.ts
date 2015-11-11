@@ -19,3 +19,8 @@ export interface RouteConfiguration {
     login: string;
     about: string;
 }
+
+export interface Logger {
+    error(message: string);
+    success(message: string);
+}

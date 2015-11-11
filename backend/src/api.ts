@@ -4,22 +4,65 @@ import * as jwt from "jsonwebtoken";
 
 export var api = express.Router();
 
-api.get("/", (req, res) => { res.json({ message: "quarto api", version: "1.0.0" }); });
+api.get("/", (req, res) => {
+    res.json({message: "yada api", version: "1.0.0"});
+});
+
+var users = [{username: "hans", password: "1234"}];
 
 api.post("/login", (req, res) => {
-    if(req.body.username != "hans") {
-        return res.status(400).json({message: "username / password wrong!"});
+
+    var user = users.filter(user => user.username == req.body.username)[0];
+    if (user != null) {
+        if(user.password != req.body.password) {
+            return res.status(400).json({message: "password wrong"});
+        } else {
+            var profile = {
+                username: user.username
+            };
+
+            var token = jwt.sign(profile, "1234", {expiresInMinutes: 60 * 5});
+
+            return res.json({token: token});
+        }
     } else {
+        return res.status(400).json({message: "username wrong!"});
+    }
+});
 
-        var profile = {
-            first_name: "Hans",
-            last_name: "Wurst",
-            email: "hans@wurst.com"
-        };
+api.post("/signup", (req, res) => {
 
-        var token = jwt.sign(profile, "1234", { expiresInMinutes: 60*5 });
+    validate(req.body, function (result) {
+        if (!result.isValid()) {
+            return res.status(400).json({message: result.getMessage()});
+        }
+        users.push({username: req.body.username, password: req.body.password});
 
-        res.json({token: token});
+        res.json({message: "ok"});
+    });
+});
+
+function validate(obj:any, fn) {
+    var valid = true;
+    if (obj.username.length < 4) {
+        valid = false;
+    }
+    if (obj.password.length < 4) {
+        valid = false;
     }
 
-});
+    fn(new ValidationResult(valid, "username / password not valid"));
+}
+
+class ValidationResult {
+    constructor(private valid:boolean, private message:string) {
+    }
+
+    isValid() {
+        return this.valid;
+    }
+
+    getMessage() {
+        return this.message;
+    }
+}

@@ -3,7 +3,9 @@ import {HomeController} from "./HomeController";
 
 export function homeModule(args?: any) {
     return {
-        controller: HomeController,
+        controller: function() {
+            return new HomeController(args.logger, args.tokenService);
+        },
         view: homeView
     };
 }
