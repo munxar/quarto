@@ -8,7 +8,11 @@ api.get("/", (req, res) => {
     res.json({message: "yada api", version: "1.0.0"});
 });
 
-var users = [{username: "hans", password: "1234"}];
+var users = [
+    {username: "hans", password: "1234"},
+    {username: "dennis", password: "1234"},
+    {username: "sascha", password: "1234"}
+];
 
 api.post("/login", (req, res) => {
 

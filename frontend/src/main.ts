@@ -42,8 +42,8 @@ function initialize(config:AppConfiguration) {
     var route = config.route;
 
     // route content
-    m.route(document.getElementById(config.layout.pageId), route.home, <MithrilRoutes<any>> {
-        [route.home]: homeModule({logger: toastService, tokenService: tokenService}),
+    m.route(document.getElementById(config.layout.pageId), route.login, <MithrilRoutes<any>> {
+        //[route.home]: homeModule({logger: toastService, tokenService: tokenService}),
         [route.about]: aboutModule(),
         [route.login]: login(toastService, tokenService),
         ["/logout"]: logout(),

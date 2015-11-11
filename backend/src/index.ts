@@ -20,12 +20,30 @@ var io = socketio(server);
 var opts = {secret: "1234", handshake: true};
 io.use(socketioJwt.authorize(opts));
 
+var users = [];
+
 io.on("connection", function (socket:any) {
     console.log(socket.decoded_token);
+    users.push({ id: socket.id, username: socket.decoded_token.username});
+
+    io.emit("update users", users);
 
     socket.on("disconnect", function () {
         console.log("disconnect %s", socket.id);
+        var user = users.filter(user => user.id == socket.id)[0];
+        if(user) {
+            var idx = users.indexOf(user);
+            users.splice(idx, 1);
+        }
+        io.emit("update users", users);
     });
+
+    socket.on("send message", function(message) {
+        console.log(message);
+        var msg = { username: socket.decoded_token.username, message: message, timestamp: new Date() };
+        io.emit("send message", msg);
+    });
+
 });
 
 server.listen(3000, function (err) {
