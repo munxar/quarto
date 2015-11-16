@@ -50,7 +50,7 @@ function initialize(config:AppConfiguration) {
         ["/signup"]: signupModule({logger: toastService}),
         ["/chat"]: chatModule({tokenService, logger: toastService})
     });
-
+    
     function logout() {
         return {
             view: function(ctrl) { return m("div"); },

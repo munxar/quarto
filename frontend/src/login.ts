@@ -44,7 +44,9 @@ class LoginController {
     }
 }
 
+
 function loginView(ctrl:LoginController) {
+
     return [
         m("h1", "login"),
         m("form", {"class": "login-form", onsubmit: ctrl.login}, [
@@ -54,6 +56,7 @@ function loginView(ctrl:LoginController) {
         ])
     ];
 }
+
 
 function formControll(name:string, value, type = "text") {
     return m("div", {}, [
