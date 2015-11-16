@@ -15,9 +15,9 @@ export function chatModule(args?:any) {
                 m("h1", "chat"),
                 m(".user-list", ctrl.vm.users.map(renderUser, ctrl)),
                 m("div", ctrl.vm.messages.map(renderMessage, ctrl)),
-                m("form", {onsubmit: ctrl.send}, [
-                    m("input", {oninput: m.withAttr("value", ctrl.vm.input), value: ctrl.vm.input()}),
-                    m("button", "send")
+                m("form.form", {onsubmit: ctrl.send}, [
+                    m("input.input", {oninput: m.withAttr("value", ctrl.vm.input), value: ctrl.vm.input()}),
+                    m("button.send", "send")
                 ])
             ];
         }
@@ -26,6 +26,7 @@ export function chatModule(args?:any) {
 
 function renderMessage(message) {
     return m(".message-container", [
+         m("img[src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'][height='50px'][width='50px']"),
         m(".timestamp", toTime(message.timestamp)),
         m(".user", message.username),
         m(".message", message.message),
