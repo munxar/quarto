@@ -1,17 +1,20 @@
-$spacing: 28px;
+@import '../variables';
+
 
 .user-list {
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 1px solid $grey;
   margin-bottom: $spacing;
+
   .online {
     padding: 10px 0;
   }
+
   .online::before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 10px;
     height: 10px;
-    background-color: #9de099;
+    background-color: $green;
     border-radius: 50%;
     margin-right: 7px;
   }
@@ -20,22 +23,65 @@ $spacing: 28px;
 
 .message-container {
   display: flex;
+  flex-flow: row wrap;
   margin-bottom: $spacing;
-  .user { font-weight: bold }
-  .message { color: #333; }
-  .timestamp { color: #d3d3d3; }
+
+  .user {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .timestamp {
+    color: $light-grey;
+    padding-left: 6px;
+  }
+
+  .message {
+    background: $green;
+    color: #fff;
+    padding: 18px 20px;
+    line-height: 26px;
+    border-radius: 7px;
+    margin-bottom: 30px;
+    width: 90%;
+    position: relative;
+
+    &::after {
+      border: solid transparent;
+      border-bottom-color: $green;
+      content: '';
+      bottom: 100%;
+      left: 20px;
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-width: 10px;
+      margin-left: -10px;
+    }
+  }
 }
 
 .form {
-  position: fixed;
   bottom: 10px;
+  position: fixed;
   width: 100%;
-  .input {
-    height: 30px;
+
+  input {
     width: 70%;
+    height: 40px;
+    box-sizing: border-box;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid $grey;
+    margin-bottom: 20px;
+    font-size: 14px;
+    padding: 0 20px;
+    outline: none;
   }
-  .send {
-    height: 35px;
+
+  .btn {
     width: 25%;
   }
 }
