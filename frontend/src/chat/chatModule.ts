@@ -101,7 +101,9 @@ class ChatController {
 
     send = e => {
         e.preventDefault();
-        this.socket.emit("send message", this.vm.input());
+        if(this.vm.input() != "") {
+            this.socket.emit("send message", this.vm.input());
+        }
         this.vm.input("");
     };
 

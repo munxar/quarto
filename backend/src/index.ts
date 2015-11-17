@@ -63,6 +63,7 @@ function initSocket(io, db) {
 
         socket.on("send message", function(message) {
             console.log(message);
+            if(message == "") return;
 
             // command message
             if(message.charAt(0) == "/") {
