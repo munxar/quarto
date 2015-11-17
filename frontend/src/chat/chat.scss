@@ -66,10 +66,13 @@
 .form {
   bottom: 10px;
   position: fixed;
-  width: 100%;
+  width: 95%;
+  text-align: center;
+  display: flex;
+  box-sizing: border-box;
 
   input {
-    width: 70%;
+    flex-grow: 1;
     height: 40px;
     box-sizing: border-box;
     border-top-left-radius: 5px;
@@ -82,7 +85,17 @@
   }
 
   .btn {
-    width: 25%;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    flex-grow: 1;
+    width: 0;
+  }
+
+  .help {
+    position: absolute;
+    bottom: 60px;
+    left: 10px;
+    background-color: #fff;
   }
 }
 
