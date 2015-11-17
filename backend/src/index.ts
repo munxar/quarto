@@ -28,6 +28,8 @@ io.on("connection", function (socket:any) {
 
     io.emit("update users", users);
 
+    socket.broadcast.emit("send message", { username: "system", message: socket.decoded_token.username + " entered the channel", timestamp: new Date()});
+
     socket.on("disconnect", function () {
         console.log("disconnect %s", socket.id);
         var user = users.filter(user => user.id == socket.id)[0];
@@ -36,15 +38,27 @@ io.on("connection", function (socket:any) {
             users.splice(idx, 1);
         }
         io.emit("update users", users);
+        socket.broadcast.emit("send message", { username: "system", message: socket.decoded_token.username + " left the channel", timestamp: new Date()});
     });
 
     socket.on("send message", function(message) {
         console.log(message);
-        var msg = { username: socket.decoded_token.username, message: message, timestamp: new Date() };
-        io.emit("send message", msg);
+
+        // command message
+        if(message.charAt(0) == "/") {
+            var tokens = message.split(" ");
+            socket.emit("send message", { username: "system", message: "command: " + tokens[0], timestamp: new Date()});
+        } else { // normal message
+            var msg = { username: socket.decoded_token.username, message: message, timestamp: new Date() };
+            io.emit("send message", msg);
+        }
     });
 
 });
+
+function commandRouter() {
+
+}
 
 server.listen(3000, function (err) {
     if (err) throw err;

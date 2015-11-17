@@ -42,24 +42,35 @@ api.post("/signup", (req, res) => {
         }
         users.push({username: req.body.username, password: req.body.password});
 
-        res.json({message: "ok"});
+        var profile = {
+            username: req.body.username
+        };
+        var token = jwt.sign(profile, "1234", {expiresInMinutes: 60 * 5});
+
+        res.json({message: "signup success", token});
     });
 });
 
 function validate(obj:any, fn) {
-    var valid = true;
+    var result = new ValidationResult(true, "invalid")
     if (obj.username.length < 4) {
-        valid = false;
+        result.valid = false;
+        result.message = "username must be at least 4 chars long."
     }
     if (obj.password.length < 4) {
-        valid = false;
+        result.valid = false;
+        result.message = "password must be at least 4 chars long."
+    }
+    if(users.filter(user => user.username == obj.username).length > 0) {
+        result.valid = false;
+        result.message = "username not available";
     }
 
-    fn(new ValidationResult(valid, "username / password not valid"));
+    fn(result);
 }
 
 class ValidationResult {
-    constructor(private valid:boolean, private message:string) {
+    constructor(public valid:boolean, public message:string) {
     }
 
     isValid() {

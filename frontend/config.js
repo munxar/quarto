@@ -10,6 +10,7 @@ System.config({
   map: {
     "clean-css": "npm:clean-css@3.4.6",
     "css": "github:systemjs/plugin-css@0.1.19",
+    "font-awesome": "npm:font-awesome@4.4.0",
     "mithril": "npm:mithril@0.2.0",
     "socket.io-client": "github:socketio/socket.io-client@1.3.7",
     "text": "github:systemjs/plugin-text@0.0.3",
@@ -88,6 +89,9 @@ System.config({
     },
     "npm:core-util-is@1.0.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
+    },
+    "npm:font-awesome@4.4.0": {
+      "css": "github:systemjs/plugin-css@0.1.19"
     },
     "npm:graceful-readlink@1.0.1": {
       "fs": "github:jspm/nodelibs-fs@0.1.2"

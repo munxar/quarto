@@ -53,7 +53,8 @@ function loginView(ctrl:LoginController) {
             formControll("username", ctrl.vm.username),
             formControll("password", ctrl.vm.password, "password"),
             [m("button", {type: "submit", disabled: !ctrl.vm.isValid() }, "Login")]
-        ])
+        ]),
+        m("a", {href:"#/signup"}, "signup")
     ];
 }
 

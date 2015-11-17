@@ -2,11 +2,12 @@
 import * as m from "mithril";
 import {min} from "../util/validation";
 import {Logger} from "../interfaces";
+import {TokenService} from "../TokenService";
 
-export function signupModule(args:{logger: Logger}) {
+export function signupModule(args:{logger: Logger, tokenService: TokenService}) {
     return {
         controller: function() {
-            return new SignupController(args.logger)
+            return new SignupController(args.logger, args.tokenService)
         },
         view: signupView
     }
@@ -15,7 +16,7 @@ export function signupModule(args:{logger: Logger}) {
 class SignupController {
     vm = new SignupViewModel();
 
-    constructor(private logger: Logger) {
+    constructor(private logger: Logger, private tokenService: TokenService) {
 
     }
 
@@ -27,7 +28,9 @@ class SignupController {
     };
 
     onSuccess = res => {
+        this.tokenService.setToken(res.token);
         this.logger.success(res.message);
+        m.route("/chat");
     };
 
     onError = res => {
@@ -54,9 +57,10 @@ function signupView(ctrl:SignupController) {
             ]),
             m("div", [
                 m("label", "password"),
-                m("input", {oninput: m.withAttr("value", ctrl.vm.password), value: ctrl.vm.password()})
+                m("input", {type: "password", oninput: m.withAttr("value", ctrl.vm.password), value: ctrl.vm.password()})
             ]),
             m("div", m("button", {type: "submit", disabled: !ctrl.vm.isValid()}, "Signup"))
-        ])
+        ]),
+        m("a", {href:"#/login"}, "login")
     ];
 }

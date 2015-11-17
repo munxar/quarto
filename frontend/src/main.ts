@@ -15,6 +15,8 @@ import {usersModule} from "./users/usersModule";
 import {chatModule} from "./chat/chatModule";
 import {signupModule} from "./signup/signupModule";
 import "./main.css!css";
+import "font-awesome";
+
 import {TokenService} from "./TokenService";
 import MithrilRoutes = _mithril.MithrilRoutes;
 
@@ -37,20 +39,22 @@ function initialize(config:AppConfiguration) {
 
     // mount toast component
     m.mount(document.getElementById(config.layout.toastId), toast(config.layout, toastService));
+
+
+    // menu
     m.mount(document.getElementById(config.layout.menuId), menuModule(config.route, tokenService));
 
-    var route = config.route;
-
     // route content
+    var route = config.route;
     m.route(document.getElementById(config.layout.pageId), route.login, <MithrilRoutes<any>> {
-        //[route.home]: homeModule({logger: toastService, tokenService: tokenService}),
+        [route.home]: homeModule({logger: toastService, tokenService: tokenService}),
         [route.about]: aboutModule(),
         [route.login]: login(toastService, tokenService),
         ["/logout"]: logout(),
-        ["/signup"]: signupModule({logger: toastService}),
+        ["/signup"]: signupModule({logger: toastService, tokenService}),
         ["/chat"]: chatModule({tokenService, logger: toastService})
     });
-    
+
     function logout() {
         return {
             view: function(ctrl) { return m("div"); },

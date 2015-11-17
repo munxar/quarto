@@ -29,8 +29,16 @@ function renderMessage(message) {
          m("img[src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'][height='50px'][width='50px']"),
         m(".timestamp", toTime(message.timestamp)),
         m(".user", message.username),
-        m(".message", message.message),
+        m(".message", renderMessageText(message.message)),
     ]);
+}
+
+function renderMessageText(text: string) {
+
+    var result = text.replace(":-)", "<i class='fa fa-smile-o'>");
+    result = result.replace(";-)", "<i class='fa fa-smile-o'>");
+    result = result.replace(":-(", "<i class='fa fa-frown-o'>");
+    return m("div", m.trust(result));
 }
 
 function toTime(date: string) {
