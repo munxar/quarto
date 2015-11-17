@@ -7,7 +7,7 @@ import {min} from "./util/validation";
 import {TokenService} from "./TokenService";
 import {Logger} from "./interfaces";
 
-class LoginViewModel {
+export class UserPassViewModel {
     username = m.prop("");
     password = m.prop("");
 
@@ -18,16 +18,16 @@ class LoginViewModel {
 }
 
 class LoginController {
-    vm = new LoginViewModel();
+    vm = new UserPassViewModel();
 
-    constructor(private logger:Logger, private tokenService: TokenService) {
+    constructor(private logger:Logger, private tokenService:TokenService) {
 
     }
 
     login = (e) => {
         e.preventDefault();
         if (this.vm.isValid()) {
-            m.request({ url: "/api/login", method: "POST", data: this.vm}).then(this.onSuccess, this.onError);
+            m.request({url: "/api/login", method: "POST", data: this.vm}).then(this.onSuccess, this.onError);
             this.vm.password("");
         }
     };
@@ -49,23 +49,31 @@ function loginView(ctrl:LoginController) {
 
     return [
         m("h1", "login"),
-        m("form", {"class": "login-form", onsubmit: ctrl.login}, [
-            formControll("username", ctrl.vm.username),
-            formControll("password", ctrl.vm.password, "password"),
-            [m("button.btn", {type: "submit", disabled: !ctrl.vm.isValid() }, "Login")]
-        ]),
-        m("a", {href:"#/signup"}, "signup")
+        userPassForm(ctrl.vm, ctrl.login, "login"),
+        m("a", {href: "#/signup"}, "signup")
     ];
 }
 
-
-function formControll(name:string, value, type = "text") {
-    return m("div", {}, [
-        m("input", {type, placeholder: name, id: name, oninput: m.withAttr("value", value), value: value() })
+export function userPassForm(vm, onsubmit, name) {
+    return m("form", {"class": "login-form", onsubmit}, [
+        m("input", {
+            type: "text",
+            placeholder: "username",
+            oninput: m.withAttr("value", vm.username),
+            value: vm.username(),
+            autofocus: true
+        }),
+        m("input", {
+            type: "password",
+            placeholder: "password",
+            oninput: m.withAttr("value", vm.password),
+            value: vm.password()
+        }),
+        m("button.btn", {type: "submit", disabled: !vm.isValid()}, name)
     ]);
 }
 
-export function login(logger: Logger, tokenService: TokenService) {
+export function login(logger:Logger, tokenService:TokenService) {
     return {
         controller: function () {
             return new LoginController(logger, tokenService);

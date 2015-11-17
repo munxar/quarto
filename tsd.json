@@ -9,7 +9,7 @@
       "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "node/node.d.ts": {
-      "commit": "8d746ca9eac4ae3d3f3561c6cdc39f2e315ac5b8"
+      "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
     },
     "mime/mime.d.ts": {
       "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
@@ -28,6 +28,9 @@
     },
     "socket.io-client/socket.io-client.d.ts": {
       "commit": "557308102dc729cce41c8c1b85107e8649b065ff"
+    },
+    "mongodb/mongodb.d.ts": {
+      "commit": "fc341765ebbb04b7109981a25dced01f488f4d94"
     }
   }
 }

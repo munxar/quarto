@@ -3,6 +3,7 @@ import * as m from "mithril";
 import {min} from "../util/validation";
 import {Logger} from "../interfaces";
 import {TokenService} from "../TokenService";
+import {UserPassViewModel, userPassForm} from "../login";
 
 export function signupModule(args:{logger: Logger, tokenService: TokenService}) {
     return {
@@ -14,7 +15,7 @@ export function signupModule(args:{logger: Logger, tokenService: TokenService}) 
 }
 
 class SignupController {
-    vm = new SignupViewModel();
+    vm = new UserPassViewModel();
 
     constructor(private logger: Logger, private tokenService: TokenService) {
 
@@ -38,29 +39,11 @@ class SignupController {
     };
 }
 
-class SignupViewModel {
-    username = m.prop("");
-    password = m.prop("");
-    isValid() {
-        return min(this.username())
-            && min(this.password())
-    }
-}
 
 function signupView(ctrl:SignupController) {
     return [
         m("h1", "signup"),
-        m("form", {onsubmit: ctrl.signup}, [
-            m("div", [
-                m("label", "username"),
-                m("input", {autofocus: true, oninput: m.withAttr("value", ctrl.vm.username), value: ctrl.vm.username()})
-            ]),
-            m("div", [
-                m("label", "password"),
-                m("input", {type: "password", oninput: m.withAttr("value", ctrl.vm.password), value: ctrl.vm.password()})
-            ]),
-            m("div", m("button", {type: "submit", disabled: !ctrl.vm.isValid()}, "Signup"))
-        ]),
+        userPassForm(ctrl.vm, ctrl.signup, "signup"),
         m("a", {href:"#/login"}, "login")
     ];
 }

@@ -12,9 +12,9 @@ export class MenuController {
         var visiblePrivate = () => tokenService.getToken();
 
         this.items = [
-            new MenuItem(route.home, "home", visiblePrivate),
+            //new MenuItem(route.home, "home", visiblePrivate),
             new MenuItem("/chat", "chat", visiblePrivate),
-            new MenuItem(route.about, "about", visiblePrivate),
+            //new MenuItem(route.about, "about", visiblePrivate),
             //new MenuItem(route.login, "login", visiblePublic),
             //new MenuItem("/signup", "signup", visiblePublic),
             new MenuItem("/logout", "logout", visiblePrivate)

@@ -12,12 +12,16 @@ export function chatModule(args?:any) {
         },
         view: function (ctrl:ChatController) {
             return [
-                m("h1", "chat"),
                 m(".user-list", ctrl.vm.users.map(renderUser, ctrl)),
                 m("div", ctrl.vm.messages.map(renderMessage, ctrl)),
                 m("form.form", {onsubmit: ctrl.send}, [
-                    m("input.input", {oninput: m.withAttr("value", ctrl.vm.input), placeholder:'Type your message', value: ctrl.vm.input()}),
-                    m("button.btn.send", "send")
+                    m("input.input", {
+                        oninput: m.withAttr("value", ctrl.vm.input),
+                        placeholder: 'Type your message',
+                        value: ctrl.vm.input(),
+                        autofocus: true
+                    }),
+                    //m("button.btn.send", "send")
                 ])
             ];
         }
@@ -32,7 +36,7 @@ function renderMessage(message) {
     ]);
 }
 
-function renderMessageText(text: string) {
+function renderMessageText(text:string) {
 
     var result = text.replace(":-)", "<i class='fa fa-smile-o'>");
     result = result.replace(";-)", "<i class='fa fa-smile-o'>");
@@ -40,7 +44,7 @@ function renderMessageText(text: string) {
     return m("div", m.trust(result));
 }
 
-function toTime(date: string) {
+function toTime(date:string) {
     var bla = new Date(date);
     return bla.getHours() + ":" + bla.getMinutes() + ":" + bla.getSeconds();
 }
@@ -86,6 +90,11 @@ class ChatController {
 
         this.socket.on("update users", users => {
             this.vm.users = users;
+            m.redraw();
+        })
+
+        this.socket.on("update chat", messages => {
+            this.vm.messages = messages;
             m.redraw();
         })
     }
