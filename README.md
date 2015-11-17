@@ -1,5 +1,5 @@
 # quarto
-simple quarto game
+simple team chat
 
 # install
 npm i
