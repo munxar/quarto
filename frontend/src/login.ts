@@ -50,15 +50,14 @@ function loginView(ctrl:LoginController) {
         m("form", {"class": "login-form", onsubmit: ctrl.login}, [
             formControll("username", ctrl.vm.username),
             formControll("password", ctrl.vm.password, "password"),
-            [m("button", {type: "submit", disabled: !ctrl.vm.isValid() }, "Login")]
+            [m("button.btn", {type: "submit", disabled: !ctrl.vm.isValid() }, "Login")]
         ])
     ];
 }
 
 function formControll(name:string, value, type = "text") {
     return m("div", {}, [
-        m("label", {"for": name}, name),
-        m("input", {type, id: name, oninput: m.withAttr("value", value), value: value() })
+        m("input", {type, placeholder: name, id: name, oninput: m.withAttr("value", value), value: value() })
     ]);
 }
 
