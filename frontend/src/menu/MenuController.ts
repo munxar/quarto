@@ -13,7 +13,7 @@ export class MenuController {
 
         this.items = [
             //new MenuItem(route.home, "home", visiblePrivate),
-            new MenuItem("/chat", "chat", visiblePrivate),
+            //new MenuItem("/chat", "chat", visiblePrivate),
             //new MenuItem(route.about, "about", visiblePrivate),
             //new MenuItem(route.login, "login", visiblePublic),
             //new MenuItem("/signup", "signup", visiblePublic),

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>layout</title>
+    <style>
+        html {
+            font-family: Arial,serif;
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: lightgrey;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+
+        section {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+        }
+
+        aside {
+            background-color: salmon;
+
+            width: 7em;
+            position: fixed;
+            top: 1em;
+            left: 0;
+            bottom: 0;
+
+            overflow-y: scroll;
+        }
+
+        main {
+            position: fixed;
+            left: 7em;
+            top: 1em;
+            bottom: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+        }
+        .msg-header {
+            position: fixed;
+            top: 1em;
+            left: 7em;
+            right: 0;
+            border-bottom: solid 1px black;
+            background-color: white;
+            z-index: 1;
+        }
+        .messages {
+            position: fixed;
+            left: 7em;
+            top: 2em;
+            bottom: 1em;
+            right: 0;
+            overflow-y: scroll;
+        }
+        .footer {
+            position: fixed;
+            left: 7em;
+            right: 0;
+            bottom: 0;
+        }
+        .msg-input {
+            width: 100%;
+        }
+        .menu-header {
+            font-weight: bold;
+            padding-top: 0.5em;
+        }
+        .active {
+            background-color: lightblue;
+        }
+        .menu > div {
+            padding-left: 0.5em;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <header>
+        <div class="navbar">
+            <div class="logo">tschät!</div>
+            <div class="account">account</div>
+        </div>
+    </header>
+    <section>
+        <aside>
+            <div class="menu">
+                <div class="menu-header">Gruppen</div>
+                <div>Alle</div>
+                <div class="active">Entwicklung</div>
+                <div>Spass im Glass</div>
+
+                <div class="menu-header">User</div>
+                <div>Hans Mayer</div>
+                <div>Peter Paul</div>
+                <div>Fritz</div>
+                <div>Gandalf</div>
+                <div>Kuhniegunde</div>
+            </div>
+        </aside>
+        <main>
+            <div class="msg-header">#dev</div>
+            <div class="messages">
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+                <div>message 1</div>
+                <div>message 2</div>
+                <div>message 3</div>
+            </div>
+            <div class="footer">
+                <input type="text" class="msg-input">
+            </div>
+        </main>
+    </section>
+</main>
+</body>
+</html>

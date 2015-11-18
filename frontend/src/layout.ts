@@ -1,6 +1,7 @@
 ///<reference path="../../mithril.d.ts"/>
 import * as m from "mithril";
 import {LayoutConfiguration} from "./interfaces";
+import "./layout.css!css";
 
 export function layout(config:LayoutConfiguration) {
     return {
@@ -8,12 +9,10 @@ export function layout(config:LayoutConfiguration) {
             return m("div.content", {id: config.contentId}, [
                 m("div", {id: config.toastId}),
                 m("header", {id: config.menuId}),
-                m("div", {id: "logout"}),
                 m("main", [
                     m("aside", [
-                        m("ul", "Group", [
-                            m("li", "deine Nase")
-                        ])
+                        m("div", "groups"),
+                        m("div", "users")
                     ]),
                     m(".chat", [
                         m("section", { id: config.usersId }),
