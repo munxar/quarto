@@ -62,8 +62,9 @@ function initSocket(io, db) {
         });
 
         socket.on("send message", function(message) {
-            console.log(message);
             if(message == "") return;
+            var tokens = message.split(" ");
+            var cmd = tokens[0];
 
             // command message
             if(message.charAt(0) == "/") {
@@ -80,5 +81,4 @@ function initSocket(io, db) {
         });
 
     });
-
 }

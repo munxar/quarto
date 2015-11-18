@@ -37,9 +37,12 @@ function renderMessage(message) {
 
 function renderMessageText(text:string) {
 
-    var result = text.replace(":-)", "<i class='fa fa-smile-o'>");
-    result = result.replace(";-)", "<i class='fa fa-smile-o'>");
-    result = result.replace(":-(", "<i class='fa fa-frown-o'>");
+    var result = text.replace(/:-\)/g, "<i class='fa fa-smile-o'>");
+    result = result.replace(/;-\)/g, "<i class='fa fa-smile-o'>");
+    result = result.replace(/:-\(/g, "<i class='fa fa-frown-o'>");
+    result = result.replace(/\(cat\)/g, "<img src='img/cat.gif'>");
+    result = result.replace(/\(hack\)/g, "<img src='img/hack.gif'>");
+
     return m("div", m.trust(result));
 }
 
@@ -79,12 +82,13 @@ class ChatController {
         });
 
         this.socket.on("connect", function () {
-            console.log("chat");
+
         });
 
         this.socket.on("send message", message => {
             this.vm.messages.push(message);
             m.redraw();
+            this.scrollToBottom();
         });
 
         this.socket.on("update users", users => {
@@ -95,6 +99,10 @@ class ChatController {
         this.socket.on("update chat", messages => {
             this.vm.messages = messages;
             m.redraw();
+            // args ...
+            setTimeout(() => {
+                this.scrollToBottom();
+            }, 50);
         })
     }
 
@@ -108,6 +116,9 @@ class ChatController {
 
     onunload() {
         this.socket.disconnect();
-        console.log("unload");
+    }
+
+    scrollToBottom() {
+        window.scrollTo(0, document.body.clientHeight);
     }
 }

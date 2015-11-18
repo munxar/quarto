@@ -16,6 +16,6 @@ export class MenuController {
 
     logout = () => {
         this.tokenService.removeToken();
-        m.route("/");
+        m.route("/login");
     };
 }
