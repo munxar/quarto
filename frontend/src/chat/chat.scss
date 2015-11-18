@@ -20,7 +20,13 @@
 }
 
 .messages {
-    margin-bottom: 100px;
+    position: fixed;
+    left: 9em;
+    top: 2em;
+    bottom: 1em;
+    right: 0;
+    overflow-y: scroll;
+    margin-bottom: 50px;
 }
 
 .message-container {
@@ -54,14 +60,12 @@
       bottom: 0;
       position: fixed;
       width: 100%;
-      display: flex;
-      justify-content: center;
       box-sizing: border-box;
       background-color: lighten($light-grey, 20%);
 
     input {
-        flex-basis: 100%;
-        margin: 10px 0;
+        width: 100%;
+        margin: 10px auto;
     }
 }
 

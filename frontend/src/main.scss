@@ -1,32 +1,42 @@
 @import 'global';
 
 main {
+    position: fixed;
+    left: 9em;
+    top: 1em;
+    bottom: 0;
+}
+section {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    width: 80%;
 }
 
 aside {
-    flex-grow: 1;
+    background-color: salmon;
+    width: 9em;
+    position: fixed;
+    top: 1em;
+    left: 0;
+    bottom: 0;
+    overflow-y: scroll;
 
     @include bp(mobileonly) {
         display: none;
     }
 
     .menu {
-        position: fixed;
         left: 10px;
-        overflow: hidden;
+        padding-top: 3.5em;
     }
 }
 
 .chat {
-    flex-grow: 2;
-    z-index: 2;
     background-color: #fff;
 }
 
 .btn {
-    width: 100%;
+    width: 80%;
     height: 40px;
     background: $blue;
     box-sizing: border-box;

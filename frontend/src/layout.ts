@@ -9,16 +9,18 @@ export function layout(config:LayoutConfiguration) {
             return m("div.content", {id: config.contentId}, [
                 m("div", {id: config.toastId}),
                 m("header.nav", {id: config.menuId}),
-                m("main", [
+                m("section", [
                     m("aside", [
                         m(".menu", [
                             m("div", "groups"),
                             m("div", "users")
                         ])
                     ]),
-                    m(".chat", [
-                        m("section", { id: config.usersId }),
-                        m("section", { id: config.pageId })
+                    m("main", [
+                        m(".chat", [
+                            m("div", { id: config.usersId }),
+                            m("div", { id: config.pageId })
+                        ])
                     ])
                 ])
             ]);
