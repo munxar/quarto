@@ -4,4 +4,7 @@ frontend/dist/
 frontend/lib/
 frontend/bin/
 typings/
-.idea/
+logs
+*.log
+.DS_Store
+.idea

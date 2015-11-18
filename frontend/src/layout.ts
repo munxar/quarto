@@ -7,11 +7,18 @@ export function layout(config:LayoutConfiguration) {
         view: function () {
             return m("div.content", {id: config.contentId}, [
                 m("div", {id: config.toastId}),
-                m("div", {id: config.menuId}),
+                m("header", {id: config.menuId}),
                 m("div", {id: "logout"}),
                 m("main", [
-                    m("div", {id: config.usersId}),
-                    m("div", {id: config.pageId})
+                    m("aside", [
+                        m("ul", "Group", [
+                            m("li", "deine Nase")
+                        ])
+                    ]),
+                    m(".chat", [
+                        m("section", { id: config.usersId }),
+                        m("section", { id: config.pageId })
+                    ])
                 ])
             ]);
         }

@@ -50,7 +50,7 @@ function loginView(ctrl:LoginController) {
     return [
         m("h1", "login"),
         userPassForm(ctrl.vm, ctrl.login, "login"),
-        m("a", {href: "#/signup"}, "signup")
+        m("a.signup", {href: "#/signup"}, "signup")
     ];
 }
 

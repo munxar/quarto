@@ -17,7 +17,6 @@ export function chatModule(args?:any) {
                 m("form.form", {onsubmit: ctrl.send}, [
                     m("input.input", {
                         oninput: m.withAttr("value", ctrl.vm.input),
-                        placeholder: 'Type your message',
                         value: ctrl.vm.input(),
                         autofocus: true
                     }),
@@ -31,8 +30,8 @@ export function chatModule(args?:any) {
 function renderMessage(message) {
     return m(".message-container", [
         m(".user", message.username),
-        m(".timestamp", toTime(message.timestamp)),
         m(".message", renderMessageText(message.message)),
+        m(".timestamp", toTime(message.timestamp)),
     ]);
 }
 
