@@ -8,11 +8,13 @@ export function layout(config:LayoutConfiguration) {
         view: function () {
             return m("div.content", {id: config.contentId}, [
                 m("div", {id: config.toastId}),
-                m("header", {id: config.menuId}),
+                m("header.nav", {id: config.menuId}),
                 m("main", [
                     m("aside", [
-                        m("div", "groups"),
-                        m("div", "users")
+                        m(".menu", [
+                            m("div", "groups"),
+                            m("div", "users")
+                        ])
                     ]),
                     m(".chat", [
                         m("section", { id: config.usersId }),

@@ -8,10 +8,17 @@ main {
 
 aside {
     flex-grow: 1;
+    .menu {
+        position: fixed;
+        left: 10px;
+        overflow: hidden;
+    }
 }
 
 .chat {
     flex-grow: 2;
+    z-index: 2;
+    background-color: #fff;
 }
 
 .signup {
@@ -37,6 +44,11 @@ aside {
     &:hover {
         background: $grey;
         border: transparent;
+    }
+
+    &:disabled {
+        background: lighten($light-grey, 20%);
+        cursor: default;
     }
 }
 

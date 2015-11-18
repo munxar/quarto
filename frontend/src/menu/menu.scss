@@ -1,9 +1,15 @@
-.menu {
+.nav {
     display: flex;
-}
+    flex-direction: row;
+    justify-content: space-between;
 
-.menu-item {
-    padding: 5px;
+    .menu-item {
+        padding: 5px;
+    }
+
+    .logo {
+        font-size: 2em;
+    }
 }
 
 .menu-item > a {
