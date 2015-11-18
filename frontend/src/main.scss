@@ -1,5 +1,4 @@
 @import 'global';
-@import 'variables';
 
 main {
     display: flex;
@@ -8,6 +7,11 @@ main {
 
 aside {
     flex-grow: 1;
+
+    @include bp(mobileonly) {
+        display: none;
+    }
+
     .menu {
         position: fixed;
         left: 10px;
