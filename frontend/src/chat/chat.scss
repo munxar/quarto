@@ -2,69 +2,63 @@
 
 
 .user-list {
-  border-bottom: 1px solid $grey;
-  margin-bottom: $spacing;
+    border-bottom: 1px solid $grey;
+    margin-bottom: $spacing;
 
-  .online {
-    padding: 10px 0;
-  }
+    .online {
+        padding: 10px 0;
+    }
 
-  .online::before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: $green;
-    border-radius: 50%;
-    margin-right: 7px;
-  }
+    .online::before {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: $green;
+        border-radius: 50%;
+        margin-right: 7px;
+    }
 }
 
 .message-container {
-  display: flex;
-  padding: 10px;
-  justify-content: space-between;
-  margin-bottom: $spacing/2;
-  background-color: lighten($blue, 20%);
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    margin-bottom: $spacing / 2;
+    background-color: lighten($blue, 20%);
 
-  .user {
-    flex-grow: 1;
-    font-weight: bold;
-    margin-right: 20px;
-  }
+    .user {
+        flex-grow: 1;
+        font-weight: bold;
+        margin-right: 20px;
+    }
 
-  .message {
-    flex-grow: 2;
-    border-radius: 7px;
-    margin-bottom: 30px;
-  }
+    .message {
+        flex-grow: 2;
+        border-radius: 7px;
+        margin-bottom: 30px;
+    }
 
-  .timestamp {
-    flex-grow: 1;
-    color: $light-grey;
-    font-size: 0.875em;
-    text-align: right;
-  }
+    .timestamp {
+        flex-grow: 1;
+        color: $light-grey;
+        font-size: 0.750em;
+        text-align: right;
+    }
 }
 
 .form {
-  bottom: 0;
-  position: fixed;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  background-color: lighten($light-grey, 20%);
+      bottom: 0;
+      position: fixed;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+      background-color: lighten($light-grey, 20%);
 
-  input {
-    flex-basis: 95%;
-    height: 40px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid $grey;
-    margin: 10px 0;
-    font-size: 1em;
-    padding: 0 20px;
-  }
+    input {
+        flex-basis: 95%;
+        margin: 10px 0;
+    }
 }
 

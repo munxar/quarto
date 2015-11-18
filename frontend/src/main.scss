@@ -1,64 +1,41 @@
+@import 'global';
 @import 'variables';
 
-body {
-  font-family: 'Arial';
-  font-size: 16px;
-  margin: 0;
-  padding: 0;
-}
-
 .signup {
-  color: $blue;
-  text-align: center;
-  display: block;
+    color: $blue;
+    text-align: center;
+    display: block;
 }
 
 .btn {
-  width: 100%;
-  height: 40px;
-  background: $blue;
-  box-sizing: border-box;
-  border-radius: 5px;
-  border: 1px solid $grey;
-  color: #fff;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 14px;
-  outline: none;
-  cursor: pointer;
-
-  &:hover {
-    background: $grey;
-    border: transparent;
-  }
-}
-
-h1 {
-  margin-bottom: 20px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.content {
-  box-sizing: border-box;
-}
-
-.login-form {
-  padding: 20px;
-
-  .label {
-    font-weight: bold;
-  }
-
-  input {
     width: 100%;
-    height: 42px;
+    height: 40px;
+    background: $blue;
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid $grey;
-    margin-bottom: 20px;
-    font-size: 1em;
-    padding: 0 20px;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
     outline: none;
-  }
+    cursor: pointer;
+
+    &:hover {
+        background: $grey;
+        border: transparent;
+    }
+}
+
+.content {
+    box-sizing: border-box;
+}
+
+.login-form {
+    padding: 20px;
+
+    input {
+        margin-bottom: 20px;
+        width: 100%;
+    }
 }
