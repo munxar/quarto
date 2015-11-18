@@ -1,4 +1,6 @@
-header {
+@import "mixin";
+
+.top-bar {
     height: 3em;
     position: fixed;
     top: 0;
@@ -6,8 +8,39 @@ header {
     right: 0;
     background-color: grey;
     z-index: 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .header-item {
+        padding: 5px;
+    }
+
+    .logo {
+        font-size: 2em;
+    }
+
 }
 
 main {
     padding-top: 3.5em;
 }
+
+aside {
+    width: 9em;
+    position: fixed;
+    top: 1em;
+    left: 0;
+    bottom: 0;
+    overflow-y: scroll;
+
+    @include bp(mobileonly) {
+        display: none;
+    }
+
+    .menu {
+        left: 10px;
+        padding-top: 3.5em;
+    }
+}
+

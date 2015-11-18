@@ -5,7 +5,7 @@ import {MenuItem} from "./MenuItem";
 
 export function menuView(ctrl: MenuController) {
     return [
-        m(".logo.menu-item", "chat!"),
-        m(".account.menu-item", "account")
+        m(".logo.header-item", "chat!"),
+        m(".account.header-item", "account")
     ];
 }

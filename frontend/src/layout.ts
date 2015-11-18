@@ -8,7 +8,7 @@ export function layout(config:LayoutConfiguration) {
         view: function () {
             return m("div.content", {id: config.contentId}, [
                 m("div", {id: config.toastId}),
-                m("header.nav", {id: config.menuId}),
+                m("header.top-bar", {id: config.menuId}),
                 m("section", [
                     m("aside", [
                         m(".menu", [
@@ -18,6 +18,7 @@ export function layout(config:LayoutConfiguration) {
                     ]),
                     m("main", [
                         m(".chat", [
+                            m('.header', "#header"),
                             m("div", { id: config.usersId }),
                             m("div", { id: config.pageId })
                         ])

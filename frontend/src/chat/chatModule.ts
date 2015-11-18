@@ -13,7 +13,7 @@ export function chatModule(args?:any) {
         view: function (ctrl:ChatController) {
             return [
                 m(".user-list", ctrl.vm.users.map(renderUser, ctrl)),
-                m(".messages", ctrl.vm.messages.map(renderMessage, ctrl)),
+                m(".conversation", ctrl.vm.messages.map(renderMessage, ctrl)),
                 m("form.form", {onsubmit: ctrl.send}, [
                     m("input.input", {
                         oninput: m.withAttr("value", ctrl.vm.input),
@@ -31,7 +31,7 @@ function renderMessage(message) {
     return m(".message-container", [
         m(".user", message.username),
         m(".message", renderMessageText(message.message)),
-        m(".timestamp", toTime(message.timestamp)),
+        m("time.timestamp", toTime(message.timestamp)),
     ]);
 }
 
