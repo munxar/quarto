@@ -4,7 +4,7 @@ import {MenuController} from "./MenuController";
 import {MenuItem} from "./MenuItem";
 
 export function menuView(ctrl: MenuController) {
-    return m(".menu", ctrl.items.filter(item => item.isVisible()).map(renderMenuItem, ctrl));
+    return m("nav.menu", ctrl.items.filter(item => item.isVisible()).map(renderMenuItem, ctrl));
 }
 
 function renderMenuItem(item: MenuItem) {

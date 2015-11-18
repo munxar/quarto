@@ -1,6 +1,19 @@
 @import 'global';
 @import 'variables';
 
+main {
+    display: flex;
+    justify-content: space-between;
+}
+
+aside {
+    flex-grow: 1;
+}
+
+.chat {
+    flex-grow: 2;
+}
+
 .signup {
     color: $blue;
     text-align: center;
