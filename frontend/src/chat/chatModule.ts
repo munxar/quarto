@@ -13,7 +13,7 @@ export function chatModule(args?:any) {
         view: function (ctrl:ChatController) {
             return [
                 m(".user-list", ctrl.vm.users.map(renderUser, ctrl)),
-                m("div", ctrl.vm.messages.map(renderMessage, ctrl)),
+                m(".messages", ctrl.vm.messages.map(renderMessage, ctrl)),
                 m("form.form", {onsubmit: ctrl.send}, [
                     m("input.input", {
                         oninput: m.withAttr("value", ctrl.vm.input),
