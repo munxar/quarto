@@ -39,16 +39,16 @@ function initSocket(io, db) {
     var users = [];
 
     io.on("connection", function (socket:any) {
-        console.log(socket.decoded_token);
-        users.push({ id: socket.id, username: socket.decoded_token.username, status: "online" });
+        var token = socket.decoded_token;
+
+        users.push({ id: socket.id, username: token.username, user_id: token.id, status: "online" });
 
         io.emit("update users", users);
         messages.find({}).sort({_id:-1}).limit(10).toArray().then(docs => {
             io.emit("update chat", docs.reverse());
         }, err => console.error(err));
 
-
-        socket.broadcast.emit("send message", { username: "system", message: socket.decoded_token.username + " entered the channel", timestamp: new Date()});
+        socket.broadcast.emit("send message", { username: "system", message: token.username + " entered the channel", timestamp: new Date()});
 
         socket.on("disconnect", function () {
             console.log("disconnect %s", socket.id);
@@ -58,7 +58,7 @@ function initSocket(io, db) {
                 users.splice(idx, 1);
             }
             io.emit("update users", users);
-            socket.broadcast.emit("send message", { username: "system", message: socket.decoded_token.username + " left the channel", timestamp: new Date()});
+            socket.broadcast.emit("send message", { username: "system", message: token.username + " left the channel", timestamp: new Date()});
         });
 
         socket.on("send message", function(message) {
@@ -70,7 +70,7 @@ function initSocket(io, db) {
                 var tokens = message.split(" ");
                 socket.emit("send message", { username: "system", message: "command: " + tokens[0], timestamp: new Date()});
             } else { // normal message
-                var msg = { username: socket.decoded_token.username, message: message, timestamp: new Date() };
+                var msg = { username: token.username, message: message, timestamp: new Date() };
                 messages.insertOne(msg).then(doc => {
                     io.emit("send message", msg);
                 }, err => {

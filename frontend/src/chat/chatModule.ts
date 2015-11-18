@@ -91,7 +91,7 @@ class ChatController {
         this.socket.on("update users", users => {
             this.vm.users = users;
             m.redraw();
-        })
+        });
 
         this.socket.on("update chat", messages => {
             this.vm.messages = messages;
