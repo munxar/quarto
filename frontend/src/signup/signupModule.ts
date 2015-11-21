@@ -41,9 +41,9 @@ class SignupController {
 
 
 function signupView(ctrl:SignupController) {
-    return [
+    return m("div", [
         m("h1", "signup"),
         userPassForm(ctrl.vm, ctrl.signup, "signup"),
         m("a", {href:"#/login"}, "login")
-    ];
+    ]);
 }

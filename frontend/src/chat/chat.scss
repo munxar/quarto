@@ -1,8 +1,8 @@
 @import '../variables';
 
 .user-list {
-    border-bottom: 1px solid $grey;
-    margin-bottom: $spacing;
+    //border-bottom: 1px solid $grey;
+    //margin-bottom: $spacing;
 
     .online {
         padding: 10px 0;
@@ -17,6 +17,13 @@
         border-radius: 50%;
         margin-right: 7px;
     }
+}
+
+.group-list {
+    .active {
+        background-color: grey;
+    }
+
 }
 
 .messages {

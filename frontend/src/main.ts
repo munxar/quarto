@@ -7,7 +7,6 @@ import {AppConfiguration} from "./interfaces";
 import {ToastService} from "./toast/ToastService";
 import {toast} from "./toast/toast";
 import {socket} from "./socket";
-import {menuModule} from "./menu/menuModule";
 import {usersModule} from "./users/usersModule";
 import {chatModule} from "./chat/chatModule";
 import {signupModule} from "./signup/signupModule";
@@ -15,45 +14,32 @@ import "./main.css!css";
 import "font-awesome";
 
 import {TokenService} from "./TokenService";
+import MithrilRoutes = _mithril.MithrilRoutes;
+import MithrilController = _mithril.MithrilController;
 
 // create configuration
-var configuration = configure();
+var config = configure();
 
-// initialize app
-initialize(configuration);
+var tokenService = new TokenService();
 
-function initialize(config:AppConfiguration) {
-    var tokenService = new TokenService();
+m.route.mode = config.routeMode;
 
-    m.route.mode = config.routeMode;
+// render layout into body
+m.render(document.body, layout(config.layout, tokenService));
 
-    // render layout into body
-    m.render(document.body, layout(config.layout));
+var toastService = new ToastService();
+toastService.addToast("welcome!");
 
-    var toastService = new ToastService();
-    toastService.addToast("welcome!");
+// mount toast component
+m.mount(document.getElementById(config.layout.toastId), toast(config.layout, toastService));
 
-    // mount toast component
-    m.mount(document.getElementById(config.layout.toastId), toast(config.layout, toastService));
-    // menu
-    m.mount(document.getElementById(config.layout.menuId), menuModule(config.route, tokenService));
+// route content
+var route = config.route;
 
-    // route content
-    var route = config.route;
-    m.route(document.getElementById(config.layout.pageId), "/chat", {
-        [route.login]: login(toastService, tokenService),
-        ["/logout"]: logout(),
-        ["/signup"]: signupModule({logger: toastService, tokenService}),
-        ["/chat"]: chatModule({tokenService, logger: toastService})
-    });
+m.route(document.getElementById(config.layout.pageId), "/chat", <MithrilRoutes<MithrilController>>{
+    [route.login]: login(toastService, tokenService),
+    ["/signup"]: signupModule({logger: toastService, tokenService}),
+    ["/chat"]: chatModule({tokenService, logger: toastService}),
+    ["/chat/:id"]: chatModule({tokenService, logger: toastService})
+});
 
-    function logout() {
-        return {
-            view: function(ctrl) { return m("div"); },
-            controller: function() {
-                tokenService.removeToken();
-                m.route(route.login);
-            }
-        }
-    }
-}

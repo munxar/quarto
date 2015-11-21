@@ -4,7 +4,7 @@ import * as http from "http";
 import {json} from "body-parser";
 import {join} from "path";
 import {api} from "./api";
-import {MongoClient} from "mongodb";
+import {MongoClient, ObjectID} from "mongodb";
 import * as socketio from "socket.io";
 var socketioJwt = require("socketio-jwt");
 
@@ -31,7 +31,8 @@ MongoClient.connect("mongodb://localhost/chat", function(err, db) {
 });
 
 function initSocket(io, db) {
-    var messages = db.collection("message");
+    var messages = db.collection("messages");
+    var userCollection = db.collection("users");
 
     var opts = {secret: "1234", handshake: true};
     io.use(socketioJwt.authorize(opts));
@@ -40,10 +41,16 @@ function initSocket(io, db) {
 
     io.on("connection", function (socket:any) {
         var token = socket.decoded_token;
-
+        console.log("connect %s", socket.id);
         users.push({ id: socket.id, username: token.username, user_id: token.id, status: "online" });
 
+        userCollection.findOne({_id: new ObjectID(token.id) }, function(err, user) {
+            delete user.password;
+            socket.emit("user", user);
+        });
+
         io.emit("update users", users);
+
         messages.find({}).sort({_id:-1}).limit(10).toArray().then(docs => {
             io.emit("update chat", docs.reverse());
         }, err => console.error(err));

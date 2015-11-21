@@ -12,15 +12,26 @@ export function chatModule(args?:any) {
         },
         view: function (ctrl:ChatController) {
             return [
-                m(".user-list", ctrl.vm.users.map(renderUser, ctrl)),
-                m(".messages", ctrl.vm.messages.map(renderMessage, ctrl)),
-                m("form.form", {onsubmit: ctrl.send}, [
-                    m("input.input", {
-                        oninput: m.withAttr("value", ctrl.vm.input),
-                        value: ctrl.vm.input(),
-                        autofocus: true
-                    }),
-                    //m("button.btn.send", "send")
+                m("aside", [
+                    m(".menu", [
+                        m("div", "groups"),
+                        m(".group-list", ctrl.vm.groups.map(renderGroup)),
+                        m("div", "Users"),
+                        m(".user-list", ctrl.vm.users.map(renderUser))
+                    ])
+                ]),
+                m(".chat", [
+                    m("section", [
+                        m(".message-header", ""),
+                        m(".messages", ctrl.vm.messages.map(renderMessage, ctrl)),
+                        m("form.form", {onsubmit: ctrl.send}, [
+                            m("input.input", {
+                                oninput: m.withAttr("value", ctrl.vm.input),
+                                value: ctrl.vm.input(),
+                                autofocus: true
+                            })
+                        ])
+                    ])
                 ])
             ];
         }
@@ -40,8 +51,8 @@ function renderMessageText(text:string) {
     var result = text.replace(/:-\)/g, "<i class='fa fa-smile-o'>");
     result = result.replace(/;-\)/g, "<i class='fa fa-smile-o'>");
     result = result.replace(/:-\(/g, "<i class='fa fa-frown-o'>");
-    result = result.replace(/\(cat\)/g, "<img src='img/cat.gif'>");
-    result = result.replace(/\(hack\)/g, "<img src='img/hack.gif'>");
+    result = result.replace(/\(cat\)/g, "<img class='img-icons' src='img/cat.gif'>");
+    result = result.replace(/\(hack\)/g, "<img class='img-icons' src='img/hack.gif'>");
 
     return m("div", m.trust(result));
 }
@@ -52,15 +63,18 @@ function toTime(date:string) {
 }
 
 function renderUser(user) {
-    return m("div", [
-        m("div", {"class": user.status}, user.username)
-    ]);
+    return m(".user", {"class": user.status}, user.username);
+}
+
+function renderGroup(group) {
+    return m(".group", {"class": group.active ? "active" : ""}, group.name);
 }
 
 class ChatViewModel {
     input = m.prop("");
     messages = [];
     users = [];
+    groups = [{name: "Alle", active: true}, {name: "Development", active: false}];
 }
 
 class ChatController {
@@ -108,7 +122,7 @@ class ChatController {
 
     send = e => {
         e.preventDefault();
-        if(this.vm.input() != "") {
+        if (this.vm.input() != "") {
             this.socket.emit("send message", this.vm.input());
         }
         this.vm.input("");

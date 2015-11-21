@@ -2,6 +2,7 @@
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
 
+
 export function api(db) {
     var api = express.Router();
 
@@ -18,12 +19,12 @@ export function api(db) {
                     return res.status(400).json({message: "password wrong"});
                 } else {
                     var profile = {
-                        username: user.username
+                        id: user._id
                     };
 
-                    var token = jwt.sign(profile, "1234", {expiresInMinutes: 60 * 5});
+                    var token = jwt.sign(profile, "1234", <any>{expiresIn: 24*60*60 });
 
-                    return res.json({token: token});
+                    return res.json({token, user});
                 }
             } else {
                 return res.status(400).json({message: "username wrong!"});
@@ -42,7 +43,7 @@ export function api(db) {
                 var profile = {
                     username: user.username
                 };
-                var token = jwt.sign(profile, "1234", {expiresInMinutes: 60 * 5});
+                var token = jwt.sign(profile, "1234", <any>{expiresIn: 24*60*60});
                 res.json({message: "signup success", token});
             }, next);
         });
