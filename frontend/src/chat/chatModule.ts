@@ -20,18 +20,14 @@ export function chatModule(args?:any) {
                         m(".user-list", ctrl.vm.users.map(renderUser))
                     ])
                 ]),
-                m(".chat", [
-                    m("section", [
-                        m(".message-header", ""),
-                        m(".messages", ctrl.vm.messages.map(renderMessage, ctrl)),
-                        m("form.form", {onsubmit: ctrl.send}, [
-                            m("input.input", {
-                                oninput: m.withAttr("value", ctrl.vm.input),
-                                value: ctrl.vm.input(),
-                                autofocus: true
-                            })
-                        ])
-                    ])
+                m(".conversation", ctrl.vm.messages.map(renderMessage, ctrl)),
+                m("form.form", {onsubmit: ctrl.send}, [
+                    m("input.input", {
+                        oninput: m.withAttr("value", ctrl.vm.input),
+                        value: ctrl.vm.input(),
+                        autofocus: true
+                    }),
+                    //m("button.btn.send", "send")
                 ])
             ];
         }
@@ -42,7 +38,7 @@ function renderMessage(message) {
     return m(".message-container", [
         m(".user", message.username),
         m(".message", renderMessageText(message.message)),
-        m(".timestamp", toTime(message.timestamp)),
+        m("time.timestamp", toTime(message.timestamp)),
     ]);
 }
 

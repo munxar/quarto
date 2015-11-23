@@ -11,11 +11,22 @@ export function layout(config:LayoutConfiguration, tokenService: TokenService) {
         view: function () {
             return m(".content", {id: config.contentId}, [
                 m("div", {id: config.toastId}),
-                m("header.nav", {id: config.menuId}, [
-                    m(".logo.menu-item", "chat!"),
-                    m(".account.menu-item", tokenService.getToken() ? m("div", { onclick: () => { tokenService.removeToken(); m.route("/login"); } }, "logout") : m("div"))
-                ]),
-                m("main", {id: config.pageId})
+                m("header.top-bar", {id: config.menuId}),
+                m("section", [
+                    m("aside", [
+                        m(".menu", [
+                            m("div", "groups"),
+                            m("div", "users")
+                        ])
+                    ]),
+                    m("main", [
+                        m(".chat", [
+                            m('.header', "#header"),
+                            m("div", { id: config.usersId }),
+                            m("div", { id: config.pageId })
+                        ])
+                    ])
+                ])
             ]);
         }
     };
