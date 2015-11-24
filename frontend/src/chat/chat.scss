@@ -1,8 +1,31 @@
 @import '../variables';
 
+.chat {
+    flex-direction: column;
+}
+
+.header {
+    background-color: #f3f3f3;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 $spacing / 2;
+    border-bottom: 1px solid black;
+    z-index: 1;
+    position: relative;
+    display: flex;
+}
+
+.room {
+    flex-direction: row;
+}
+
+.room-chat {
+    flex-direction: column;
+}
+
 .user-list {
     border-bottom: 1px solid $grey;
-    margin-bottom: $spacing;
+    margin-bottom: $spacing / 2;
 
     .online {
         padding: 10px 0;
@@ -20,13 +43,12 @@
 }
 
 .conversation {
-    position: fixed;
-    left: 9em;
-    top: 2em;
-    bottom: 1em;
-    right: 0;
-    overflow-y: scroll;
     margin-bottom: 50px;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    flex: 1 0 0;
 }
 
 .message-container {
@@ -56,16 +78,17 @@
     }
 }
 
-.form {
-      bottom: 0;
-      position: fixed;
-      width: 100%;
-      box-sizing: border-box;
-      background-color: lighten($light-grey, 20%);
-
-    input {
-        width: 100%;
-        margin: 10px auto;
-    }
+.entry {
+    position: relative;
+    bottom: 50px;
+    height: 50px;
+    min-height: 50px;
+    display: flex;
+    background-color: lighten($light-grey, 20%);
 }
 
+input {
+    max-height: 100%;
+    padding: $spacing / 2;
+    flex: 1;
+}

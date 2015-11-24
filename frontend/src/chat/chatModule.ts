@@ -12,15 +12,16 @@ export function chatModule(args?:any) {
         },
         view: function (ctrl:ChatController) {
             return [
-                m(".user-list", ctrl.vm.users.map(renderUser, ctrl)),
-                m(".conversation", ctrl.vm.messages.map(renderMessage, ctrl)),
-                m("form.form", {onsubmit: ctrl.send}, [
-                    m("input.input", {
-                        oninput: m.withAttr("value", ctrl.vm.input),
-                        value: ctrl.vm.input(),
-                        autofocus: true
-                    }),
-                    //m("button.btn.send", "send")
+                m('.room-chat', [
+                    m(".conversation", ctrl.vm.messages.map(renderMessage, ctrl)),
+                    m("form.entry", { onsubmit: ctrl.send }, [
+                        m("input", {
+                            oninput: m.withAttr("value", ctrl.vm.input),
+                            value: ctrl.vm.input(),
+                            autofocus: true
+                        }),
+                        //m("button.btn.send", "send")
+                    ])
                 ])
             ];
         }

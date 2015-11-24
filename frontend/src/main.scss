@@ -1,53 +1,5 @@
 @import 'global';
 
-main {
-    position: fixed;
-    left: 9em;
-    top: 1em;
-    bottom: 0;
-}
-
-section {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-}
-
-aside {
-    width: 9em;
-    position: fixed;
-    top: 1em;
-    left: 0;
-    bottom: 0;
-    overflow-y: scroll;
-
-    @include bp(mobileonly) {
-        display: none;
-    }
-
-    .menu {
-        left: 10px;
-        padding-top: 3.5em;
-    }
-}
-
-.chat {
-    background-color: #fff;
-
-    .header {
-        position: fixed;
-        top: 3em;
-        height: 40px;
-        line-height: 40px;
-        left: 9em;
-        right: 0;
-        padding-left: 15px;
-        border-bottom: 1px solid black;
-        background-color: white;
-        z-index: 1;
-    }
-}
-
 .btn {
     width: 80%;
     height: 40px;
@@ -71,10 +23,6 @@ aside {
         background: lighten($light-grey, 20%);
         cursor: default;
     }
-}
-
-.content {
-    box-sizing: border-box;
 }
 
 .login-form {

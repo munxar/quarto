@@ -1,16 +1,27 @@
 @import "mixin";
 
-.top-bar {
-    height: 3em;
+.chat, .room, .room-chat {
+    flex: 1;
+    display: flex;
+}
+
+.blackbox {
     position: fixed;
-    top: 0;
+    top: 50px;
     left: 0;
-    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.top-bar {
     background-color: grey;
     z-index: 3;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 50px;
 
     .header-item {
         padding: 5px;
@@ -22,25 +33,30 @@
 
 }
 
-main {
-    padding-top: 3.5em;
-}
-
-aside {
-    width: 9em;
-    position: fixed;
-    top: 1em;
-    left: 0;
-    bottom: 0;
-    overflow-y: scroll;
+.sidebar {
+    width: 200px;
+    min-width: 200px;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    padding: $spacing / 2;
 
     @include bp(mobileonly) {
-        display: none;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: -200px;
     }
 
     .menu {
         left: 10px;
-        padding-top: 3.5em;
     }
 }
 
+.content {
+    display: flex;
+    flex: 1;
+}
