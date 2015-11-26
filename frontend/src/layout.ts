@@ -2,28 +2,25 @@
 import * as m from "mithril";
 import {LayoutConfiguration} from "./interfaces";
 import "./layout.css!css";
-import {menuModule} from "./menu/menuModule";
-import {TokenService} from "./TokenService";
 
-export function layout(config:LayoutConfiguration, tokenService: TokenService) {
+export function layout(config:LayoutConfiguration) {
     return {
-        controller: function() {},
         view: function () {
-            return m(".content", {id: config.contentId}, [
-                m("div", {id: config.toastId}),
+            return m("div.container", {id: config.contentId}, [
                 m("header.top-bar", {id: config.menuId}),
-                m("section", [
-                    m("aside", [
+                m("div", {id: config.toastId}),
+                m('.blackbox', [
+                    m("aside.sidebar", [
                         m(".menu", [
                             m("div", "groups"),
                             m("div", "users")
                         ])
                     ]),
-                    m("main", [
-                        m(".chat", [
+                    m("main.content", [
+                        m("section.chat", [
                             m('.header', "#header"),
                             m("div", { id: config.usersId }),
-                            m("div", { id: config.pageId })
+                            m(".room", { id: config.pageId })
                         ])
                     ])
                 ])
