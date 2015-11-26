@@ -9,8 +9,8 @@ import * as socketio from "socket.io";
 var socketioJwt = require("socketio-jwt");
 
 // connect to db
-MongoClient.connect("mongodb://localhost/chat", function(err, db) {
-    if(err) throw err;
+MongoClient.connect("mongodb://localhost/chat", function (err, db) {
+    if (err) throw err;
 
     // create express app
     var app = express();
@@ -37,6 +37,7 @@ MongoClient.connect("mongodb://localhost/chat", function(err, db) {
 function initSocket(io, db) {
     var messages = db.collection("messages");
     var userCollection = db.collection("users");
+    var channels = db.collection("channels");
 
     //var opts = {secret: "1234", handshake: true};
     //io.use(socketioJwt.authorize(opts));
@@ -47,50 +48,79 @@ function initSocket(io, db) {
         timeout: 15000 // 15 seconds to send the authentication message
     }));
 
-    io.on("authenticated", function(socket:any) {
+    io.on("authenticated", function (socket:any) {
         var token = socket.decoded_token;
         console.log("connect %s", socket.id);
         console.log(token);
 
         //socket.emit("authenticated", {});
 
-        users.push({ id: socket.id, username: token.username, user_id: token.id, status: "online" });
+        users.push({id: socket.id, username: token.username, user_id: token.id, status: "online"});
 
-        userCollection.findOne({_id: new ObjectID(token.id) }).then(user => {
+        userCollection.findOne({_id: new ObjectID(token.id)}).then(user => {
             delete user.password;
             socket.emit("user", user);
         });
 
         io.emit("update users", users);
 
-        messages.find({}).sort({_id:-1}).limit(10).toArray().then(docs => {
+        messages.find({}).sort({_id: -1}).limit(10).toArray().then(docs => {
             io.emit("update chat", docs.reverse());
         }, err => console.error(err));
 
-        socket.broadcast.emit("send message", { username: "system", message: token.username + " entered the channel", timestamp: new Date()});
+        socket.broadcast.emit("send message", {
+            username: "system",
+            message: token.username + " entered the channel",
+            timestamp: new Date()
+        });
+
+        channels.find({users: token.id}).stream().on("data", channel => socket.emit("channel.add", channel));
+
+        socket.on("channel.add", function (name) {
+            channels.insertOne({users: [token.id], name}).then(doc => {
+                var channel = doc.ops[0];
+                socket.emit("channel.add", channel);
+            });
+        });
+
+        socket.on("channel.remove", function (id) {
+            channels.findOneAndDelete({_id: new ObjectID(id)}).then(doc => {
+                var channel = doc.value;
+                socket.emit("channel.remove", channel._id);
+            });
+        });
 
         socket.on("disconnect", function () {
             console.log("disconnect %s", socket.id);
             var user = users.filter(user => user.id == socket.id)[0];
-            if(user) {
+            if (user) {
                 var idx = users.indexOf(user);
                 users.splice(idx, 1);
             }
             io.emit("update users", users);
-            socket.broadcast.emit("send message", { username: "system", message: token.username + " left the channel", timestamp: new Date()});
+            socket.broadcast.emit("send message", {
+                username: "system",
+                message: token.username + " left the channel",
+                timestamp: new Date()
+            });
         });
 
-        socket.on("send message", function(message: string) {
-            if(message == "") return;
+        socket.on("send message", function (message:string) {
+            if (message == "" || message == undefined) return;
+            console.log(message);
             var tokens = message.split(" ");
             var cmd = tokens[0];
 
             // command message
-            if(message.charAt(0) == "/") {
+            if (message.charAt(0) == "/") {
                 var tokens = message.split(" ");
-                socket.emit("send message", { username: "system", message: "command: " + tokens[0], timestamp: new Date()});
+                socket.emit("send message", {
+                    username: "system",
+                    message: "command: " + tokens[0],
+                    timestamp: new Date()
+                });
             } else { // normal message
-                var msg = { username: token.username, message: message, timestamp: new Date() };
+                var msg = {username: token.username, message: message, timestamp: new Date()};
                 messages.insertOne(msg).then(doc => {
                     io.emit("send message", msg);
                 }, err => {

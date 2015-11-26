@@ -5,7 +5,7 @@ import {AuthService} from "./AuthService";
 import {LoggerService} from "./LoggerService";
 
 export class SocketService {
-    socket;
+    private socket;
 
     constructor(private auth:AuthService) {
     }
@@ -55,5 +55,18 @@ export class SocketService {
             // disconnect
             this.socket.disconnect();
         }
+    }
+
+    on(name: string, fn) {
+        this.socket.on(name, (msg) => {
+            // call callback
+            fn(msg);
+            // force redraw cause this was an async operation
+            m.redraw();
+        });
+    }
+
+    emit(name: string, msg?) {
+        this.socket.emit(name, msg);
     }
 }
