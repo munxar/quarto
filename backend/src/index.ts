@@ -8,13 +8,17 @@ import {MongoClient, ObjectID} from "mongodb";
 import * as socketio from "socket.io";
 var socketioJwt = require("socketio-jwt");
 
+// connect to db
 MongoClient.connect("mongodb://localhost/chat", function(err, db) {
     if(err) throw err;
+
+    // create express app
     var app = express();
-
+    // server static files
     app.use(express.static(join(__dirname, "../../frontend")));
-
+    // parse body as json
     app.use(json());
+    // mount api
     app.use("/api", api(db));
 
     var server = http.createServer(app);
@@ -34,17 +38,25 @@ function initSocket(io, db) {
     var messages = db.collection("messages");
     var userCollection = db.collection("users");
 
-    var opts = {secret: "1234", handshake: true};
-    io.use(socketioJwt.authorize(opts));
-
+    //var opts = {secret: "1234", handshake: true};
+    //io.use(socketioJwt.authorize(opts));
     var users = [];
 
-    io.on("connection", function (socket:any) {
+    io.on("connection", socketioJwt.authorize({
+        secret: "1234",
+        timeout: 15000 // 15 seconds to send the authentication message
+    }));
+
+    io.on("authenticated", function(socket:any) {
         var token = socket.decoded_token;
         console.log("connect %s", socket.id);
+        console.log(token);
+
+        //socket.emit("authenticated", {});
+
         users.push({ id: socket.id, username: token.username, user_id: token.id, status: "online" });
 
-        userCollection.findOne({_id: new ObjectID(token.id) }, function(err, user) {
+        userCollection.findOne({_id: new ObjectID(token.id) }).then(user => {
             delete user.password;
             socket.emit("user", user);
         });
@@ -68,7 +80,7 @@ function initSocket(io, db) {
             socket.broadcast.emit("send message", { username: "system", message: token.username + " left the channel", timestamp: new Date()});
         });
 
-        socket.on("send message", function(message) {
+        socket.on("send message", function(message: string) {
             if(message == "") return;
             var tokens = message.split(" ");
             var cmd = tokens[0];
@@ -86,6 +98,5 @@ function initSocket(io, db) {
                 });
             }
         });
-
     });
 }

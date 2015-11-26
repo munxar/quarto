@@ -2,7 +2,6 @@
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
 
-
 export function api(db) {
     var api = express.Router();
 
@@ -18,13 +17,7 @@ export function api(db) {
                 if(user.password != req.body.password) {
                     return res.status(400).json({message: "password wrong"});
                 } else {
-                    var profile = {
-                        id: user._id
-                    };
-
-                    var token = jwt.sign(profile, "1234", <any>{expiresIn: 24*60*60 });
-
-                    return res.json({token, user});
+                    return generateToken(user, res);
                 }
             } else {
                 return res.status(400).json({message: "username wrong!"});
@@ -40,11 +33,8 @@ export function api(db) {
             }
             users.insertOne({username: req.body.username, password: req.body.password}).then((doc:any) => {
                 var user = doc.ops[0];
-                var profile = {
-                    username: user.username
-                };
-                var token = jwt.sign(profile, "1234", <any>{expiresIn: 24*60*60});
-                res.json({message: "signup success", token});
+
+                return generateToken(user, res);
             }, next);
         });
     });
@@ -80,6 +70,17 @@ export function api(db) {
         getMessage() {
             return this.message;
         }
+    }
+
+    function generateToken(user, res) {
+        var payload = {
+            id: user._id
+        };
+        var token = jwt.sign(payload, "1234", <any>{expiresIn: 24*60*60});
+
+        delete user.password;
+
+        return res.json({token, user});
     }
 
     return api;
